@@ -1,6 +1,6 @@
 {
   "name": "elena",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Whatsapp parser + interesting facts",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/uncedric/elena#readme",
   "dependencies": {
+    "lodash": "^4.5.1",
     "moment": "^2.11.2"
   }
 }

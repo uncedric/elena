@@ -2,6 +2,11 @@ var fs = require('fs');
 var stream = require('stream');
 var readline = require('readline');
 var moment = require('moment');
+var _ = require('lodash');
+
+var elena = {};
+
+elena.chat = [];
 
 function readFileContent(filename, callback){
   var lines = [];
@@ -25,11 +30,12 @@ function readFileContent(filename, callback){
   });
 
   rl.on('line', function(line){
-    lines.push(formatLine(line));
+    elena.chat.push(formatLine(line));
   });
 
   rl.on('close', function(){
-    callback(null, lines);
+    // elena.chat = lines;
+    callback(null, elena);
   });
 }
 
@@ -70,11 +76,16 @@ function messageDetails(parts){
   return details;
 }
 
-exports.parse = function(filename){
+elena.stats = function () {
+  var people = _.groupBy(elena.chat,'author');
+  var result = {};
+  // count how many messages have sent each person
+  _.each(people,function (value,key) {
+    result[key] = value.length;
+  });
+  return result;
+};
+
+module.exports = function(filename){
   return readFileContent.apply(this, arguments);
 };
-
-exports.stats = function () {
-
-};
-
